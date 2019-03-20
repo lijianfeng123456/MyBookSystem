@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.sanxiaU.dao.ManageDao">
+<!-- 1、实现二级缓存第一步，让mapper支持缓存 -->
+<!-- 
+1、eviction：回收策略
+|- LRU（默认的）：最近最少使用算法，将最近不使用的对象进行清空； 
+|- FIFO：先进先出算法，默认会自动清除最早缓存的数据对象； 
+|- SOFT：软引用，当内存不足时，执行GC 会立刻清除； 
+|- WEAK：弱应用，只要发生了GC，该缓存的对象就会被清空。
+2、flushInterval：刷新间隔：毫秒为单位
+3、readOnly：true、false
+true:只读：数据操作以查询为主，缓冲数据直接将引用发送给你
+false:可读写：是将数据在底层用序列化和反序列化技术对对象进行拷贝，将拷贝数据交给你使用
+4、size：缓存大小
+5、type：第三方的缓存：redis
+ -->
+<cache></cache>
+<select id="manageLogin"  resultType="com.sanxiaU.entity.Manage">
+select * from manage where mg_user=#{mg_user} and mg_pwd=#{mg_pwd}
+</select>
+
+<update id="manageLoginIpAndTime">
+update manage set mg_ip=#{mg_ip},mg_time=#{mg_time} where mg_user=#{mg_user}
+</update>
+</mapper>
