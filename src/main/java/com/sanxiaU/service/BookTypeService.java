@@ -13,17 +13,19 @@ import com.sanxiaU.entity.BookType;
 public class BookTypeService {
 	@Autowired
 	private BookTypeDao btd;
-	public List<BookType> findBookType(){
-		return btd.findBookType();
-	}
-	public List<BookType> findBookType(Integer currentpage, Integer pagesize){
+	public List<BookType> findBookType(Integer currentpage, Integer pagesize,String bt_type){
 		// 使用分页插件
 		PageHelper.startPage(currentpage, pagesize);
 		// 返回图书种类的集合
-		return btd.findBookType();
+		return btd.findBookType(bt_type);
 	}
 	public void removeBookType(String bt_type) {
 		btd.removeBookType(bt_type);
-		
+	}
+	public void addBookType(String bt_type){
+		btd.addBookType(bt_type);
+	}
+	public BookType checkBookType(String bt_type){
+		return btd.checkBookType(bt_type);
 	}
 }
