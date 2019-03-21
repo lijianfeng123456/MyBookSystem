@@ -6,16 +6,21 @@
 <mapper namespace="com.sanxiaU.dao.BookTypeDao">
 
 <cache></cache>
-<!-- 查询是否有这种类型的图书类别 -->
-<select id="findOneBookType"  resultType="com.sanxiaU.entity.BookType">
+
+<!-- 查询图书类别（用pageHelper分页） -->
+<select id="findBookType"  resultType="com.sanxiaU.entity.BookType" parameterType="string">
+select * from book_type
+<if test="bt_type!=null">
+where bt_type like concat(concat("%",#{bt_type}),"%")
+</if>
+</select>
+<!-- 检查重复的图书分类名称 -->
+<select id="checkBookType"  resultType="com.sanxiaU.entity.BookType" parameterType="string">
 select * from book_type where bt_type=#{bt_type}
 </select>
-<!-- 查询所有的图书类别（用pageHelper分页） -->
-<select id="findBookType"  resultType="com.sanxiaU.entity.BookType">
-select * from book_type
-</select>
+
 <!-- 新增图书类别 -->
-<insert id="">
+<insert id="addBookType">
 insert into book_type (bt_type) values(#{bt_type})
 </insert>
 <!-- 批量删除指定的图书 -->

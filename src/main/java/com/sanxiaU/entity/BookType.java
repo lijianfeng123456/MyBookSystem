@@ -3,7 +3,7 @@ package com.sanxiaU.entity;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class BookType implements Serializable{
+public class BookType implements Serializable,Comparable<BookType>{
 	private long bt_id;
 	private String bt_type;
 	public long getBt_id() {
@@ -30,6 +30,11 @@ public class BookType implements Serializable{
 		super();
 		this.bt_id = bt_id;
 		this.bt_type = bt_type;
+	}
+	@Override
+	public int compareTo(BookType b) {
+		// TODO Auto-generated method stub
+		return this.getBt_type().compareTo(b.getBt_type());
 	}
 	
 }

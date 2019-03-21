@@ -29,7 +29,7 @@ public class BookTypeAction {
 		return page;
 	}
 
-	@GetMapping(value = "/addBookType2")
+	@GetMapping(value = "/batchRemoveBookType")
 	@ResponseBody
 	public PageInfo<BookType> addBookType(@RequestParam("page") Integer currentpage,
 			@RequestParam("pageSize") Integer pagesize, @RequestParam("bt_type") String bt_type) {
