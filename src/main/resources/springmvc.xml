@@ -18,7 +18,7 @@
 <mvc:default-servlet-handler/>
 <mvc:default-servlet-handler/><mvc:cors>
 	<mvc:mapping path="/**"
-				 allowed-origins="http://localhost,http://10.4.0.142"
+				 allowed-origins="*"
 				 allowed-methods="POST,GET,OPTIONS,DELETE,PUT"
 				 allowed-headers="Content-Type,ContentType,Access-Control-Allow-Headers, Authorization, X-Requested-With"
 				 allow-credentials="true"/>

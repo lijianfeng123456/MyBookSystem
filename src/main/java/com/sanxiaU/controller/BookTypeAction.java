@@ -1,5 +1,6 @@
 package com.sanxiaU.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,8 +29,26 @@ public class BookTypeAction {
 		PageInfo<BookType> page = new PageInfo<BookType>(bookTypeList);
 		return page;
 	}
-
 	@GetMapping(value = "/batchRemoveBookType")
+	@ResponseBody
+	public Message batchRemover(@RequestParam("ids")String ids){
+		System.out.println(ids);
+		String[] bt_ids=ids.split("\\,");
+		System.out.println(bt_ids[0]);
+		Message mes =new Message();
+		try{
+			bts.removeBookTypeList(bt_ids);
+			mes.setCode(200);
+			mes.setMsg("批量删除成功！");
+		}catch(Exception e){
+			e.printStackTrace();
+			mes.setCode(500);
+			mes.setMsg("失败,批量删除发生严重错误！");
+		}
+		return mes;
+	}
+
+	@GetMapping(value = "/batchRemoveBookType2")
 	@ResponseBody
 	public PageInfo<BookType> addBookType(@RequestParam("page") Integer currentpage,
 			@RequestParam("pageSize") Integer pagesize, @RequestParam("bt_type") String bt_type) {

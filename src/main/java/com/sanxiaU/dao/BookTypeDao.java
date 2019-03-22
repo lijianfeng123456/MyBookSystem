@@ -12,7 +12,7 @@ public interface BookTypeDao {
 	List<BookType> findBookType(@Param("bt_type") String bt_type);
 
 	void removeBookType(@Param("bt_type") String bt_type);
-	void removeBookTypeList(@Param("ids") Map ids);//TODO批量删除
+	void removeBookTypeList(String[] ids);//TODO批量删除
 
 	void addBookType(@Param("bt_type") String bt_type);
 	

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sanxiaU.entity.Manage;
 import com.sanxiaU.entity.Message;
 import com.sanxiaU.service.ManageService;
-import com.sanxiaU.until.GetIpAddress;
+import com.sanxiaU.untils.GetIpAddress;
 
 /**
  * @author ljf
@@ -22,7 +22,6 @@ import com.sanxiaU.until.GetIpAddress;
  * @
  */
 @Controller
-//@RequestMapping("/s")
 public class ManageAction {
 
 	@Autowired

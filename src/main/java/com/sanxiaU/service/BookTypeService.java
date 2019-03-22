@@ -28,4 +28,7 @@ public class BookTypeService {
 	public BookType checkBookType(String bt_type){
 		return btd.checkBookType(bt_type);
 	}
+	public void removeBookTypeList(String[] ids){
+		btd.removeBookTypeList(ids);
+	}
 }
