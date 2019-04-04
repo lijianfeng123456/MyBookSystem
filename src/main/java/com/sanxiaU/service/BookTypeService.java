@@ -13,6 +13,12 @@ import com.sanxiaU.entity.BookType;
 public class BookTypeService {
 	@Autowired
 	private BookTypeDao btd;
+	public List<BookType> showBookType(){
+		return btd.findBookType();
+	}
+	public BookType getBookType(Integer bt_id){
+		return btd.getBookType(bt_id);
+	}
 	public List<BookType> findBookType(Integer currentpage, Integer pagesize,String bt_type){
 		// 使用分页插件
 		PageHelper.startPage(currentpage, pagesize);

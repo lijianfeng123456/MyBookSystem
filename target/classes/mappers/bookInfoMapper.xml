@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.sanxiaU.dao.BookInfoDao">
+
+<cache></cache>
+
+<!-- 查询图书信息（用pageHelper分页） -->
+<select id="findBookInfo"  resultType="com.sanxiaU.entity.BookInfo" parameterType="string">
+select * from book_info
+<if test="bi_name!=null">
+where bt_info like concat(concat("%",#{bi_name}),"%")
+</if>
+</select>
+<!-- 检查重复的图书信息名称-->
+<select id="checkBookInfo"  resultType="com.sanxiaU.entity.BookInfo" parameterType="string">
+select * from book_info where bi_name=#{bi_name}
+</select>
+
+<!-- 查询图书类型id总数 -->
+<select id="findBookCount" resultType="Integer" parameterType="Integer">
+select count(*) from book_info where bt_id=#{bt_id}
+</select>
+<!-- 新增图书信息 -->
+<insert id="addBookInfo">
+insert into book_info (bi_name,bt_id,bi_author,bi_putTime,bi_num,bi_il,bi_unitPrice,bi_pubDate,bi_publish,bi_pubTime,bi_abstract,bi_img) values(#{bi_name},#{bt_id},#{bi_author},#{bi_putTime},#{bi_num},#{bi_il},#{bi_unitPrice},#{bi_pubDate},#{bi_publish},#{bi_pubTime},#{bi_abstract},#{bi_img})
+</insert>
+<!-- 批量删除指定的图书 -->
+<delete id="removeBookInfoList" parameterType ="String">
+delete from book_info where bi_id=
+<foreach collection="array" item = "bi_id" open="(" separator="," close=")">
+#{bi_id}
+</foreach>
+
+</delete>
+<!-- 删除一本图书信息 -->
+<delete id="removeBookInfo" parameterType="String">
+delete from book_info where bi_name=#{bi_name}
+</delete>
+</mapper>

@@ -19,7 +19,21 @@ import com.sanxiaU.service.BookTypeService;
 public class BookTypeAction {
 	@Autowired
 	private BookTypeService bts;
-
+	
+	@GetMapping(value = "/getBookType")
+	@ResponseBody
+	public BookType getBookType(Integer bt_id) {
+		BookType bookType = bts.getBookType(bt_id);
+		System.out.println("666");
+		return bookType;
+	}
+	@GetMapping(value = "/allBookType")
+	@ResponseBody
+	public List<BookType> showBookType() {
+		List<BookType> bookTypeList = bts.showBookType();
+		System.out.println("666");
+		return bookTypeList;
+	}
 	@GetMapping(value = "/bookTypeList")
 	@ResponseBody
 	public PageInfo<BookType> findBookTypeList(@RequestParam("page") Integer currentpage,

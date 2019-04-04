@@ -4,25 +4,65 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.github.pagehelper.PageInfo;
+import com.sanxiaU.entity.BookInfo;
 import com.sanxiaU.entity.Message;
+import com.sanxiaU.service.BookInfoService;
 
 @RestController
-public class UpdateBookAction {
-
+public class BookInfoAction {
+   
+	@Autowired
+	private BookInfoService bis;
     /**
-     * 文件上传
-     * @param picture
-     * @param request
-     * @return
+     * 图书管理页面
      */
+	
+	@GetMapping(value = "/getBookList")
+	@ResponseBody
+	public PageInfo<BookInfo> findBookList(@RequestParam("page") Integer currentpage,
+			@RequestParam("pageSize") Integer pagesize, @RequestParam("bi_name") String bi_name) {
+		List<BookInfo> bookInfoList = bis.findBookInfo(currentpage, pagesize, bi_name);
+		System.out.println("图书信息List大小：" + bookInfoList.size());
+		PageInfo<BookInfo> page = new PageInfo<BookInfo>(bookInfoList);
+		return page;
+	}
+	//新增图书
+	@RequestMapping(value="/addBook")
+	 public Message add(BookInfo bookinfo, HttpServletRequest request){
+		 System.out.println(bookinfo.toString());
+		
+		 try{
+			 if(bis.checkBookInfo(bookinfo.getBi_name())!=null)
+				 return new Message("图书名称已存在,请检查!",501,"");
+			 
+			    // bookinfo.setBi_putTime(ChangeDate.getDate(bookinfo.getBi_putTime()));
+			     //bookinfo.setBi_pubDate(ChangeDate.getDate(bookinfo.getBi_pubDate()));
+			     bis.addBookInfo(bookinfo);
+			 
+		 }catch(Exception e){
+			 e.printStackTrace();
+			 return new Message("新增图书失败,请检查!",500,"");
+		 }
+		 return new Message("新增图书信息成功！",200,"");
+	 }
+	 @RequestMapping("/addImg")
+	 public Message addImg(@RequestParam("picture") MultipartFile picture){
+		return new Message("添加图片成功！",200,"");
+	 }
+	//上传图书图片
     @RequestMapping("/upload")
     public Message upload(@RequestParam("picture") MultipartFile picture, HttpServletRequest request) {
 
@@ -68,6 +108,7 @@ public class UpdateBookAction {
             String serverPath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort();
 System.out.println(serverPath);
 System.out.println(serverPath+"\\"+request.getContextPath()+"\\img?url="+fileName);
+			
             return new Message("上传成功！",200,serverPath+"\\"+request.getContextPath()+"\\img?url="+fileName);
         } catch (IOException e) {
             System.out.println("上传失败");

@@ -11,9 +11,11 @@ public class BookInfo implements Serializable {
 
 	private long bi_id;//id
 	private String bi_name; //图书名
-	private BookType bt_type; //图书类别
+	private Integer bt_id; //图书类别id
+	private String bi_author; //图书作者
 	private String bi_putTime;//上传时间
 	private Integer bi_num; //图书数量
+	private Integer bi_unitPrice;//图书价格
 	private Integer bi_il; //图书借阅所需的积分
 	private String bi_pubDate; //图书出版日期
 	private String bi_publish; //图书出版社
@@ -32,11 +34,11 @@ public class BookInfo implements Serializable {
 	public void setBi_name(String bi_name) {
 		this.bi_name = bi_name;
 	}
-	public BookType getBt_type() {
-		return bt_type;
+	public Integer getBt_id() {
+		return bt_id;
 	}
-	public void setBt_type(BookType bt_type) {
-		this.bt_type = bt_type;
+	public void setBt_id(Integer bt_id) {
+		this.bt_id = bt_id;
 	}
 	public String getBi_putTime() {
 		return bi_putTime;
@@ -88,16 +90,18 @@ public class BookInfo implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "BookInfo [bi_id=" + bi_id + ", bi_name=" + bi_name + ", bt_type=" + bt_type + ", bi_putTime="
-				+ bi_putTime + ", bi_num=" + bi_num + ", bi_il=" + bi_il + ", bi_pubDate=" + bi_pubDate
+		return "BookInfo [bi_id=" + bi_id + ", bi_name=" + bi_name + ",bi_author="+bi_author+", bt_id=" + bt_id + ", bi_putTime="
+				+ bi_putTime + ",bi_unitPrice="+bi_unitPrice+" ,bi_num=" + bi_num + ", bi_il=" + bi_il + ", bi_pubDate=" + bi_pubDate
 				+ ", bi_publish=" + bi_publish + ", bi_pubTime=" + bi_pubTime + ", bi_abstract=" + bi_abstract
 				+ ", bi_img=" + bi_img + "]";
 	}
-	public BookInfo(String bi_name, BookType bt_type, String bi_putTime, Integer bi_num, Integer bi_il,
+	public BookInfo(String bi_name, String bi_author,Integer bt_id, String bi_putTime,Integer bi_unitPrice, Integer bi_num, Integer bi_il,
 			String bi_pubDate, String bi_publish, Integer bi_pubTime, String bi_abstract, String bi_img) {
 		this.bi_name = bi_name;
-		this.bt_type = bt_type;
+		this.bi_author=bi_author;
+		this.bt_id = bt_id;
 		this.bi_putTime = bi_putTime;
+		this.bi_unitPrice=bi_unitPrice;
 		this.bi_num = bi_num;
 		this.bi_il = bi_il;
 		this.bi_pubDate = bi_pubDate;
@@ -107,7 +111,18 @@ public class BookInfo implements Serializable {
 		this.bi_img = bi_img;
 	}
 	public BookInfo() {
-		super();
+	}
+	public String getBi_author() {
+		return bi_author;
+	}
+	public void setBi_author(String bi_author) {
+		this.bi_author = bi_author;
+	}
+	public Integer getBi_unitPrice() {
+		return bi_unitPrice;
+	}
+	public void setBi_unitPrice(Integer bi_unitPrice) {
+		this.bi_unitPrice = bi_unitPrice;
 	}
 	
 	
